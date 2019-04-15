@@ -99,7 +99,7 @@ public class SparkRestEjemplo {
 
         //busca todos los incidentes de un usuario responsable
         //busca el usuario por id
-        get("/incidente/usuario:id", (request, response) -> {
+        get("/incidente/usuario/:id", (request, response) -> {
             response.type("application/json");
             Usuario usuario = apiService.getUsuario(Integer.parseInt(request.params(":id")));
             return new Gson().toJson(new StandardResponse(
@@ -128,7 +128,7 @@ public class SparkRestEjemplo {
 
         //busca todos los proyectos de un usuario
         //parametro de busqueda de usuario : id usuario
-        get("/proyecto/usuario:id", (request, response) -> {
+        get("/proyecto/usuario/:id", (request, response) -> {
             response.type("application/json");
             if (apiService.usuarioExist(Integer.parseInt(request.params(":id")))) {
                 Usuario propietario = apiService.getUsuario(Integer.parseInt(request.params(":id")));
