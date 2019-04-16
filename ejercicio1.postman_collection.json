@@ -1,0 +1,552 @@
+{
+	"info": {
+		"_postman_id": "87e21052-66e1-42c6-a75f-fd2bef793834",
+		"name": "ejercicio1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "User get by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f125543-ae0b-470b-9e95-648635329b9b",
+								"exec": [
+									"var schema = {",
+									"  \"id\": {",
+									"    \"type\": \"integer\"",
+									"  },",
+									"  \"nombre\":{",
+									"      \"type\":\"string\"",
+									"  },",
+									"  \"apellido\":{",
+									"      \"type\":\"string\"",
+									"  }",
+									"};",
+									"",
+									"var jsonBody = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"  pm.expect(tv4.validate(jsonBody, schema)).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/usuario/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User add new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64b00cc0-979e-4b22-ac94-175b61082247",
+								"exec": [
+									"var schema = {",
+									"  \"id\": {",
+									"    \"type\": \"int\"",
+									"  },",
+									"  \"nombre\":{",
+									"      \"type\":\"string\"",
+									"  },",
+									"  \"apellido\":{",
+									"      \"type\":\"string\"",
+									"  }",
+									"};",
+									"",
+									"var jsonBody = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"  pm.expect(tv4.validate(jsonBody, schema)).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":\"5\",\n\t\"nombre\":\"juliado\",\n\t\"apellido\":\"Mancilla\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/usuario",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User modificar ERROR",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "02615ba8-ecdd-4627-8615-d60ddbe18f47",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json\");",
+									"});",
+									"",
+									"pm.test(\"Response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.contain(\"Error al editar el integrante\");",
+									"});",
+									"",
+									"pm.test(\"Response Status is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.contain(\"ERROR\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":\"0\",\n\t\"nombre\":\"juan\",\n\t\"apellido\":\"noLibre\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/usuario",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario"
+							]
+						},
+						"description": "mando un body mal armado"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Proyectos",
+			"item": [
+				{
+					"name": "Proyectos get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0756893e-2d80-4df6-b6ea-1f45b35d3b6c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Response Status is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.contain(\"SUCCESS\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/proyecto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proyecto get 1 by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc83dcf6-c01b-4ce8-a059-d4d8ab5bb253",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Response Status is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.contain(\"SUCCESS\");",
+									"});",
+									"",
+									"pm.test(\"Proyecto 1 es marketplace\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"data\"].titulo).to.eql(\"marketplace\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/proyecto/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proyecto add new",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b83ce308-a8b6-4bd2-ab2b-98bfdbe9a85c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response Status is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.contain(\"SUCCESS\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 4,\n    \"titulo\": \"wallet\",\n    \"propietario\": {\n        \"id\": 1,\n        \"nombre\": \"juan\",\n        \"apellido\": \"bere\"\n    }\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/proyecto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proyecto get todos los proyectos del usuario 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29553fc5-6b29-4e94-9157-6b754726f87f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Es propietario del proyecto 1 el usuario 1 \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"data\"][0].propietario.id).to.eql(1);",
+									"});",
+									"pm.test(\"Response Status is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.contain(\"SUCCESS\");",
+									"});",
+									"pm.test(\"Es propietario del proyecto 4 el usuario 1 (Recien agregado)\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"data\"][0].propietario.id).to.eql(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/proyecto/usuario/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"usuario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Incidentes",
+			"item": [
+				{
+					"name": "Incidentes get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0f519a01-1192-4c40-8637-5f2f25f4177d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response Status is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.contain(\"SUCCESS\");",
+									"});",
+									"pm.test(\"Incidente 1 es server apagado\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"data\"][0].descripcion).to.eql(\"server apagado\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/incidente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"incidente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Incidentes reportados por usuario 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "09330547-c283-45c6-9070-607e6e1639fb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response Status is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.contain(\"SUCCESS\");",
+									"});",
+									"pm.test(\"Incidente reportado por usuario 3\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"data\"][0].id).to.eql(1);",
+									"});",
+									"pm.test(\"Incidente reportado por usuario 3\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"data\"][1].id).to.eql(2);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/incidente/usuario/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"incidente",
+								"usuario",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Incidente borrar ERROR",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c5e53f5-1bc4-458f-9385-1bef09c4392d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.contain(\"No se puede borrar los incidentes\");",
+									"});",
+									"pm.test(\"Response Status is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.contain(\"ERROR\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/incidente/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"incidente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

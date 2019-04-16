@@ -57,7 +57,12 @@ public class ApiServiceMapImpl implements ApiService {
             return usuarioAEditar;
 
         } catch (Exception exception) {
-            throw new ApiException(exception.getMessage());
+
+            throw new ApiException("Error en editar un usuario");
+
+        }
+        finally {
+            return usuario = null ;
         }
 
 

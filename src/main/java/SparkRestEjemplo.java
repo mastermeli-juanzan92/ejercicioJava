@@ -210,6 +210,18 @@ public class SparkRestEjemplo {
 
         });
 
+        //borrar un proyecto por el parametro id
+        delete("/incidente/:id", (request, response) -> {
+
+            response.type("application/json");
+
+            return new Gson().toJson(new StandardResponse(
+                    StatusResponse.ERROR,
+                    "No se puede borrar los incidentes")
+            );
+
+        });
+
 
 
         System.out.println("Work with port: " + port());
